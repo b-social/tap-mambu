@@ -82,10 +82,10 @@ class MultithreadedBookmarkGenerator(MultithreadedOffsetGenerator):
         # increment bookmark
         record_bookmark_value = record.get(convert(self.endpoint_bookmark_field))
         if record_bookmark_value is not None:
-            # utc_record_bookmark_value = datetime_to_tz(str_to_localized_datetime(record_bookmark_value), "UTC")
-            # LOGGER.info(f'record_bookmark_value: {record_bookmark_value}, utc_record_bookmark_value: {utc_record_bookmark_value}')
-            # self.set_intermediary_bookmark(utc_record_bookmark_value)
-            self.set_intermediary_bookmark(datetime_to_tz(str_to_localized_datetime(record_bookmark_value), "UTC"))
+            utc_record_bookmark_value = datetime_to_tz(str_to_localized_datetime(record_bookmark_value), "UTC")
+            LOGGER.info(f'record_bookmark_value: {record_bookmark_value}, utc_record_bookmark_value: {utc_record_bookmark_value}')
+            self.set_intermediary_bookmark(utc_record_bookmark_value)
+            # self.set_intermediary_bookmark(datetime_to_tz(str_to_localized_datetime(record_bookmark_value), "UTC"))
         return record
 
     def preprocess_batches(self, final_buffer):
