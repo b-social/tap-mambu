@@ -36,7 +36,9 @@ def sync_all_streams(client, config, catalog, state):
     from .tap_generators.child_generator import ChildGenerator
     from .tap_processors.child_processor import ChildProcessor
 
-    get_timezone_info(client)
+    tz_info = get_timezone_info(client)
+    
+    LOGGER.info(f'Timezone infor: {tz_info}')
 
     PerformanceMetrics.set_generator_batch_size(int(config.get("page_size", DEFAULT_PAGE_SIZE)))
     
