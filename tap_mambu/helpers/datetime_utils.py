@@ -2,6 +2,7 @@ from pytz import timezone
 from datetime import datetime, timedelta
 from tap_mambu import MambuClient
 import dateutil.parser
+import os
 
 
 _timezone = None
@@ -24,8 +25,12 @@ _datetime_formats = [
 
 def get_timezone_info(client: MambuClient):
     global _timezone
-    response = client.request(method="GET", path="settings/organization", version="v1")
-    _timezone = timezone(response.get("timeZoneID"))
+    envar_tz = os.environ.get('MAMBU_TIMEZONE_ID', None)
+    if envar_tz:
+        _timezone = timezone(envar_tz)
+    else:
+        response = client.request(method="GET", path="settings/organization", version="v1")
+        _timezone = timezone(response.get("timeZoneID"))
     return _timezone
 
 
