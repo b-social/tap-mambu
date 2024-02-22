@@ -25,13 +25,8 @@ _datetime_formats = [
 
 def get_timezone_info(client: MambuClient):
     global _timezone
-    envar_tz = os.environ.get('MAMBU_TIMEZONE_ID', None)
-    if envar_tz:
-        _timezone = timezone(envar_tz)
-    else:
-        response = client.request(method="GET", path="settings/organization", version="v1")
-        _timezone = timezone(response.get("timeZoneID"))
-    return _timezone
+    response = client.request(method="GET", path="settings/organization", version="v1")
+    _timezone = timezone(response.get("timeZoneID"))
 
 
 def localize(dttm: datetime) -> datetime:
