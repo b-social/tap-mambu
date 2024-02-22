@@ -77,3 +77,8 @@ def local_now():
 
 def add_days(start_date: datetime, days_to_add: int) -> datetime:
     return (start_date+ timedelta(days=days_to_add))
+
+def bst_fix(dttm: datetime) -> datetime:
+    if dttm.tzname() in ['UTC+01:00', 'BST']:
+        dttm = dttm - timedelta(seconds=3600)
+    return dttm

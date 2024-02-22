@@ -20,11 +20,12 @@ class DepositTransactionsGenerator(MultithreadedBookmarkGenerator):
             {
                 "field": "creationDate",
                 "operator": "BETWEEN",
-                "value": datetime_to_utc_str(self.dt_start_date),
-                "secondValue" : datetime_to_utc_str(self.dt_end_date)
+                "value": self.dt_start_date.isoformat(),
+                "secondValue" : self.dt_end_date.isoformat()
             }
         ]
 
     def prepare_batch_params(self):
         super(DepositTransactionsGenerator, self).prepare_batch_params()
-        self.endpoint_filter_criteria[0]["value"] = datetime_to_utc_str(self.endpoint_intermediary_bookmark_value)
+        # self.endpoint_filter_criteria[0]["value"] = datetime_to_utc_str(self.endpoint_intermediary_bookmark_value)
+        self.endpoint_filter_criteria[0]["value"] = self.endpoint_intermediary_bookmark_value.isoformat()
