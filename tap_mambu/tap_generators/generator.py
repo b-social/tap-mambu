@@ -51,7 +51,7 @@ class TapGenerator(ABC):
 
     def _init_endpoint_body(self):
         self.endpoint_body = {
-                "sortingCriteria": self.endpoint_sorting_criteria,
+                # "sortingCriteria": self.endpoint_sorting_criteria,
                 "filterCriteria": self.endpoint_filter_criteria
                 }
 
