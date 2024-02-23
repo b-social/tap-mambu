@@ -48,7 +48,8 @@ def str_to_datetime(dttm_str: str) -> datetime:
 
 
 def str_to_localized_datetime(dttm_str: str) -> datetime:
-    return localize(str_to_datetime(dttm_str))
+    # return localize(str_to_datetime(dttm_str))
+    return localize(bst_fix(str_to_datetime(dttm_str))) # TODO: This is part of a rubbish fix
 
 
 def datetime_to_utc_str(dttm: datetime) -> str:
