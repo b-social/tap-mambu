@@ -50,10 +50,15 @@ class TapGenerator(ABC):
         self.endpoint_bookmark_field = ""
 
     def _init_endpoint_body(self):
-        self.endpoint_body = {
-                # "sortingCriteria": self.endpoint_sorting_criteria,
-                "filterCriteria": self.endpoint_filter_criteria
-                }
+        if self.endpoint_sorting_criteria != None:
+            self.endpoint_body = {
+                    "sortingCriteria": self.endpoint_sorting_criteria,
+                    "filterCriteria": self.endpoint_filter_criteria
+                    }
+        else:
+            self.endpoint_body = {
+                    "filterCriteria": self.endpoint_filter_criteria
+                    }
 
     def _init_buffers(self):
         self.buffer: List = list()
