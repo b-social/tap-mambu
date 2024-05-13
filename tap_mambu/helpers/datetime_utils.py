@@ -3,6 +3,9 @@ from datetime import datetime, timedelta
 from tap_mambu import MambuClient
 import dateutil.parser
 import os
+from singer import get_logger
+
+LOGGER = get_logger()
 
 
 _timezone = None
@@ -27,6 +30,7 @@ def get_timezone_info(client: MambuClient):
     global _timezone
     response = client.request(method="GET", path="settings/organization", version="v1")
     _timezone = timezone(response.get("timeZoneID"))
+    LOGGER.info(f"Timezone info collected = {_timezone}")
 
 
 def localize(dttm: datetime) -> datetime:
