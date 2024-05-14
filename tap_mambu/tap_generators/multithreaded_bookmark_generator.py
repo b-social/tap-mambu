@@ -85,7 +85,6 @@ class MultithreadedBookmarkGenerator(MultithreadedOffsetGenerator):
         if record_bookmark_value is not None:
             # self.set_intermediary_bookmark(datetime_to_tz(str_to_localized_datetime(record_bookmark_value), "UTC"))
             local_date_time = str_to_localized_datetime(record_bookmark_value)
-            # fixed_local_date_time = bst_fix(local_date_time)  # TODO: This is a bad fix!
             self.set_intermediary_bookmark(
                 record_bookmark_value=local_date_time, 
                 raw_bookmark_value=record_bookmark_value)
