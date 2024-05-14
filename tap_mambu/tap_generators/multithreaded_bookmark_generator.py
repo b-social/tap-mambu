@@ -6,7 +6,7 @@ from singer import get_logger
 
 from .multithreaded_offset_generator import MultithreadedOffsetGenerator
 from ..helpers import transform_json, convert
-from ..helpers.datetime_utils import str_to_localized_datetime, datetime_to_tz, bst_fix
+from ..helpers.datetime_utils import str_to_localized_datetime, datetime_to_tz
 from ..helpers.multithreaded_requests import MultithreadedRequestsPool
 
 LOGGER = get_logger()
