@@ -85,20 +85,17 @@ class MultithreadedBookmarkGenerator(MultithreadedOffsetGenerator):
         if record_bookmark_value is not None:
             # self.set_intermediary_bookmark(datetime_to_tz(str_to_localized_datetime(record_bookmark_value), "UTC"))
             local_date_time = str_to_localized_datetime(record_bookmark_value)
-            self.set_intermediary_bookmark(
-                record_bookmark_value=local_date_time, 
-                raw_bookmark_value=record_bookmark_value)
+            self.set_intermediary_bookmark(local_date_time)
         return record
 
     def preprocess_batches(self, final_buffer):
         super().preprocess_batches(final_buffer)
         self.last_batch_size = len(final_buffer)
 
-    def set_intermediary_bookmark(self, record_bookmark_value, raw_bookmark_value):
+    def set_intermediary_bookmark(self, record_bookmark_value):
         if self.endpoint_intermediary_bookmark_value is None or \
                 self.compare_bookmark_values(record_bookmark_value,
                                              self.endpoint_intermediary_bookmark_value):
-            LOGGER.info(f"Updating intermediary bookmark {self.endpoint_intermediary_bookmark_value} to {record_bookmark_value}, converted from {raw_bookmark_value}")
             self.endpoint_intermediary_bookmark_value = record_bookmark_value
             self.endpoint_intermediary_bookmark_offset = 1
             return

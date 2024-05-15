@@ -1,6 +1,6 @@
 from .multithreaded_bookmark_generator import MultithreadedBookmarkGenerator
 from ..helpers import get_bookmark
-from ..helpers.datetime_utils import datetime_to_utc_str, str_to_localized_datetime, add_days
+from ..helpers.datetime_utils import datetime_to_utc_str, str_to_localized_datetime, add_days, amend_timestamp
 
 
 class LoanTransactionsGenerator(MultithreadedBookmarkGenerator):
@@ -16,11 +16,11 @@ class LoanTransactionsGenerator(MultithreadedBookmarkGenerator):
             {
                 "field": "creationDate",
                 "operator": "BETWEEN",
-                "value": datetime_to_utc_str(self.dt_start_date),
-                "secondValue" : datetime_to_utc_str(self.dt_end_date)
+                "value": amend_timestamp(datetime_to_utc_str(self.dt_start_date)),
+                "secondValue" : amend_timestamp(datetime_to_utc_str(self.dt_end_date))
             }
         ]
 
     def prepare_batch_params(self):
         super(LoanTransactionsGenerator, self).prepare_batch_params()
-        self.endpoint_filter_criteria[0]["value"] = datetime_to_utc_str(self.endpoint_intermediary_bookmark_value)
+        self.endpoint_filter_criteria[0]["value"] = amend_timestamp(datetime_to_utc_str(self.endpoint_intermediary_bookmark_value))
