@@ -29,4 +29,4 @@ class DepositTransactionsGenerator(MultithreadedBookmarkGenerator):
     def prepare_batch_params(self):
         super(DepositTransactionsGenerator, self).prepare_batch_params()
         # self.endpoint_filter_criteria[0]["value"] = datetime_to_utc_str(self.endpoint_intermediary_bookmark_value)
-        self.endpoint_filter_criteria[0]["value"] = self.endpoint_intermediary_bookmark_value.isoformat()
+        self.endpoint_filter_criteria[0]["value"] = amend_timestamp(self.endpoint_intermediary_bookmark_value.isoformat())
