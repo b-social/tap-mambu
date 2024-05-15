@@ -35,6 +35,18 @@ def current_utc_delta(tz: BaseTzInfo) -> timedelta:
     now = datetime.now()
     return (utc.localize(now) - tz.localize(now).astimezone(utc))
 
+def target_tz_hour_delta(target_time: datetime) -> timedelta:
+    '''Timezone delta in seconds between UTC and target TZ'''
+    delta = target_time.astimezone(_utc_delta_tz).hour - target_time.astimezone(_timezone).hour
+    return delta
+
+def amend_timestamp(str_dttm: str):
+    dttm = str_to_datetime(str_dttm)
+    hour_delta = target_tz_hour_delta(dttm)
+    ameneded_dttm = dttm + timedelta(hours=hour_delta)
+    return datetime_to_local_str(ameneded_dttm)
+    
+
 def get_timezone_info(client: MambuClient):
     global _timezone
     global _utc_delta_tz

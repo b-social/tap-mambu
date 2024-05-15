@@ -1,6 +1,6 @@
 from .multithreaded_bookmark_generator import MultithreadedBookmarkGenerator
 from ..helpers import get_bookmark
-from ..helpers.datetime_utils import datetime_to_utc_str, str_to_localized_datetime, add_days
+from ..helpers.datetime_utils import datetime_to_utc_str, str_to_localized_datetime, add_days, amend_timestamp
 
 
 class DepositTransactionsGenerator(MultithreadedBookmarkGenerator):
@@ -21,8 +21,8 @@ class DepositTransactionsGenerator(MultithreadedBookmarkGenerator):
             {
                 "field": "creationDate",
                 "operator": "BETWEEN",
-                "value": self.dt_start_date.isoformat(),
-                "secondValue" : self.dt_end_date.isoformat()
+                "value": amend_timestamp(self.dt_start_date.isoformat()),
+                "secondValue" : amend_timestamp(self.dt_end_date.isoformat())
             }
         ]
 
