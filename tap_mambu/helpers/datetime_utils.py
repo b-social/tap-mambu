@@ -38,14 +38,14 @@ def current_utc_delta(tz: BaseTzInfo) -> timedelta:
 
 def target_tz_hour_delta(target_time: datetime) -> timedelta:
     '''Timezone delta in seconds between UTC and target TZ'''
-    delta = target_time.astimezone(_utc_delta_tz).hour - target_time.astimezone(_timezone).hour
+    delta = target_time.astimezone(_utc_delta_tz).replace(tzinfo=None) - target_time.astimezone(_timezone).replace(tzinfo=None)
     return delta
 
 
 def amend_timestamp(str_dttm: str):
     dttm = str_to_datetime(str_dttm)
-    hour_delta = target_tz_hour_delta(dttm)
-    ameneded_dttm = dttm + timedelta(hours=hour_delta)
+    delta = target_tz_hour_delta(dttm)
+    ameneded_dttm = dttm + delta
     return datetime_to_local_str(ameneded_dttm)
     
 
