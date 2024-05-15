@@ -1,4 +1,4 @@
-from pytz import timezone
+from pytz import timezone, BaseTzInfo
 from datetime import (
     datetime, 
     timedelta, 
@@ -29,19 +29,19 @@ _datetime_formats = [
     "%Y-%m-%d",                 # 0000-00-00
 ]
 
-def current_utc_delta(tz):
+def current_utc_delta(tz: BaseTzInfo) -> timedelta:
     '''Timezone delta in seconds between UTC and target TZ'''
     utc = timezone('UTC')
     now = datetime.now()
-    return (utc.localize(now) - tz.localize(now).astimezone(utc)).seconds
+    return (utc.localize(now) - tz.localize(now).astimezone(utc))
 
 def get_timezone_info(client: MambuClient):
     global _timezone
     global _utc_delta_tz
     response = client.request(method="GET", path="settings/organization", version="v1")
     _timezone = timezone(response.get("timeZoneID"))
-    _utc_delta_tz = dt_timezone(timedelta=current_utc_delta(_timezone))
     LOGGER.info(f"Timezone info collected = {_timezone}")
+    _utc_delta_tz = dt_timezone(offset=current_utc_delta(_timezone))
     LOGGER.info(f"UTC Delta collected = {_utc_delta_tz}")
 
 
