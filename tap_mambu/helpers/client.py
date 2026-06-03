@@ -170,7 +170,9 @@ class MambuClient(object):
             self.__session.headers['apikey'] = self.__apikey
         else:
             # Basic Authentication: https://api.mambu.com/?http#authentication
-            self.__session.auth = (self.__username, self.__password)
+            self.__session.auth = (self.__username, self.__password
+        LOGGER.debug('Request endpoint: %s, headers: %s', endpoint, kwargs['headers'])
+        
         response = self.__session.get(
             url=url,
             headers=headers)
@@ -219,8 +221,6 @@ class MambuClient(object):
 
         if method == 'POST':
             kwargs['headers']['Content-Type'] = 'application/json'
-
-        LOGGER.debug('Request endpoint: %s, headers: %s', endpoint, kwargs['headers'])
 
         with metrics.http_request_timer(endpoint) as timer:
             response = self.__session.request(
