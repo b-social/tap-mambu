@@ -52,7 +52,7 @@ def amend_timestamp(str_dttm: str):
 def get_timezone_info(client: MambuClient):
     global _timezone
     global _utc_delta_tz
-    response = client.request(method="GET", path="settings/organization", version="v1")
+    response = client.request(method="GET", path="setup/organization", version="v2")
     _timezone = timezone(response.get("timeZoneID"))
     LOGGER.info(f"Timezone info collected = {_timezone}")
     _utc_delta_tz = dt_timezone(offset=current_utc_delta(_timezone))
