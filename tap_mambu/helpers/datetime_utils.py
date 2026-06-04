@@ -54,7 +54,7 @@ def get_timezone_info(client: MambuClient):
     global _utc_delta_tz
     # response = client.request(method="GET", path="setup/organization", version="v2")
     # _timezone = timezone(response.get("timeZoneID"))
-    _timezone = "Europe/London"
+    _timezone = timezone("Europe/London")
     LOGGER.info(f"Timezone info collected = {_timezone}, HARDCODED FOR NOW")
     _utc_delta_tz = dt_timezone(offset=current_utc_delta(_timezone))
     LOGGER.info(f"UTC Delta collected = {_utc_delta_tz}")
