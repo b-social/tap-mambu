@@ -170,8 +170,8 @@ class MambuClient(object):
             self.__session.headers['apikey'] = self.__apikey
         else:
             # Basic Authentication: https://api.mambu.com/?http#authentication
-            self.__session.auth = (self.__username, self.__password
-        LOGGER.debug('Request endpoint: %s, headers: %s', endpoint, kwargs['headers'])
+            self.__session.auth = (self.__username, self.__password)
+        LOGGER.debug('Request endpoint: %s, headers: %s', endpoint, headers)
         
         response = self.__session.get(
             url=url,
